@@ -19,8 +19,4 @@ public class Room : MonoBehaviour {
     {
         connections.Add(m);
     }
-    public void addobj(Interaction m)
-    {
-        available.Add(m);
-    }
 }
