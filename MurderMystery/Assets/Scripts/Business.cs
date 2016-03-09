@@ -129,9 +129,9 @@ public class Business : MonoBehaviour {
         Speed = 1;
         MaxAssets = 10;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-	    
+
 	}
 }
