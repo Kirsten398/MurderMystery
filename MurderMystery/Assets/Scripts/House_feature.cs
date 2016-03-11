@@ -8,13 +8,27 @@ public class House_feature : MonoBehaviour {
     float happiness; //value between 0 and 5 on how happy your customers get from seeing this
     float originality; //value between 0 and 1 on how original the prop is
     int AssetPoints;
+
+    public int AssetPoints1
+    {
+        get
+        {
+            return AssetPoints;
+        }
+
+        set
+        {
+            AssetPoints = value;
+        }
+    }
+
     void Start () {
         nahme = "Zombie";
         cost = 100;
         scary = 0.12f;
         happiness = 0.22f;
         originality = 0.1f;
-        AssetPoints = 2;
+        AssetPoints1 = 2;
 	}
 
 	// Update is called once per frame
