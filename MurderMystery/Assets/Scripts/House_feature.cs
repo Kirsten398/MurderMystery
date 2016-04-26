@@ -35,4 +35,7 @@ public class House_feature : MonoBehaviour {
 	void Update () {
 
 	}
+  public int purchase(){
+    return cost
+  }
 }
