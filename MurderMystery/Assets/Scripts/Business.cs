@@ -134,4 +134,8 @@ public class Business : MonoBehaviour {
 	void Update () {
 
 	}
+  void makePurchase(House_feature d){
+    if(Money >= d.purchase()) Money -= d.purchase();
+    else{} //produce error message
+  }
 }
