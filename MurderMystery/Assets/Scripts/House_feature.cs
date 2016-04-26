@@ -36,6 +36,6 @@ public class House_feature : MonoBehaviour {
 
 	}
   public int purchase(){
-    return cost
+        return cost;
   }
 }

@@ -23,4 +23,9 @@ public class Customer : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public float getSanity()
+    {
+        return sanity;
+    }
 }
