@@ -24,7 +24,7 @@ public class House : MonoBehaviour {
         Line.TrimExcess();
         //Camlin use this to make the line move
     }
-    void AddAsset(House_feature m)
+    public void AddAsset(House_feature m)
     {
         if (totalAssets + m.AssetPoints1 <= maxAssets)
         {

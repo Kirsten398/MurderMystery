@@ -12,6 +12,7 @@ public class Business : MonoBehaviour {
     float speed; //value between 1 and 20 on how fast and efficient your house is
     int customers; //number of customers on one day
     int maxAssets; //number of features you can place in your house
+    House myHouse;
 
     public int Money1
     {
@@ -134,8 +135,12 @@ public class Business : MonoBehaviour {
 	void Update () {
 
 	}
-  void makePurchase(House_feature d){
-    if(Money >= d.purchase()) Money -= d.purchase();
-    else{} //produce error message
+  public void makePurchase(House_feature d){
+    if (Money >= d.purchase())
+    {
+        Money -= d.purchase();
+            myHouse.AddAsset(d);
+    }
+    else { } //produce error message
   }
 }
