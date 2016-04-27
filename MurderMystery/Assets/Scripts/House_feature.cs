@@ -30,12 +30,20 @@ public class House_feature : MonoBehaviour {
         originality = 0.1f;
         AssetPoints1 = 2;
 	}
-
+    public void Create(string n, int c, float s, float h, float o, int ap)
+    {
+        nahme = n;
+        cost = c;
+        scary = s;
+        happiness = h;
+        originality = o;
+        AssetPoints = ap;
+    }
 	// Update is called once per frame
 	void Update () {
 
 	}
   public int purchase(){
-    return cost
+        return cost;
   }
 }

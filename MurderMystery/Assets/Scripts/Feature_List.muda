@@ -1,69 +1,10 @@
-Zombie
-100
-1.11f
-0.22f
-0.1f
-2
-
-Jack In The Box
-50
-2.20f
-0.12f
-0.05f
-1
-
-Minor Ghost
-100
-3.2f
-0.4f
-0.09f
-3
-
-Witch
-200
-5.4f
-0.03f
-0.2f
-2
-
-Vampire
-300
-4.4f
-4.4f
-0.12f
-3
-
-Werewolf
-250
-3.2f
-1.5f
-0.09f
-2
-
-Minor Black Cat
-50
-1.0f
-4.0f
-0.2f
-1
-
-Minor Spider
-40
-3.0f
-0.5f
-0.1f
-1
-
-CobWebs
-30
-2.0f
-0.1f
-0.1f
-1
-
-This
-400
-5.0f
-2.0f
-0.2f
-2
+Zombie|100|1.11f|0.22f|0.1f|2
+Jack In The Box|50|2.20f|0.12f|0.05f|1
+Minor Ghost|100|3.2f|0.4f|0.09f|3
+Witch|200|5.4f|0.03f|0.2f|2
+Vampire|300|4.4f|4.4f|0.12f|3
+Werewolf|250|3.2f|1.5f|0.09f|2
+Minor Black Cat|50|1.0f|4.0f|0.2f|1
+Minor Spider|40|3.0f|0.5f|0.1f|1
+CobWebs|30|2.0f|0.1f|0.1f|1
+This|400|5.0f|2.0f|0.2f|2
