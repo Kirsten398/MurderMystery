@@ -15,6 +15,7 @@ public class Parser : MonoBehaviour {
 	void Update () {
 
 	}
+
     public List<House_feature> getShop(string fileName)
     {
         // Handle any problems that might arise when reading the text

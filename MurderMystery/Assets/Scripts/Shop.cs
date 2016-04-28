@@ -8,8 +8,11 @@ public class Shop : MonoBehaviour {
     Parser p = new Parser();
 	
     // Use this for initialization
+    //Unity is screaming about something in here
 	void Start () {
         availableItems = p.getShop("Feature_List.muda");
+        Debug.Log(availableItems.Count);
+        aval = new House_feature[availableItems.Count];
         aval = availableItems.ToArray();
 
 	}
