@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class House_feature : MonoBehaviour {
-    string nahme;
-    int cost; //Available budget in fictional currency
-    float scary; //value between 0 and 20 on how scary the prop
-    float happiness; //value between 0 and 5 on how happy your customers get from seeing this
-    float originality; //value between 0 and 1 on how original the prop is
-    int AssetPoints;
+    public string nahme;
+    public int cost; //Available budget in fictional currency
+    public float scary; //value between 0 and 20 on how scary the prop
+    public float happiness; //value between 0 and 5 on how happy your customers get from seeing this
+    public float originality; //value between 0 and 1 on how original the prop is
+    public int AssetPoints;
 
     public int AssetPoints1
     {
