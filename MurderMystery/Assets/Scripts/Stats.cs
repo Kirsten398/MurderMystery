@@ -23,6 +23,10 @@ public class Stats : MonoBehaviour {
 	void Update () {
 
     }
+    public void addItem(int ss)
+    {
+
+    }
 
     public int getZambies()
     {

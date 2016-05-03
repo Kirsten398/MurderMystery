@@ -1,15 +1,22 @@
 ﻿using UnityEngine;
+using System.IO;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 
 public class Shop : MonoBehaviour {
     List<House_feature> availableItems;
+    public Transform hf;
+    House_feature op;
     House_feature[] aval;
-    Parser p = new Parser();
-	
+    string fname;
+
     // Use this for initialization
-	void Start () {
-        availableItems = p.getShop("Feature_List.muda");
+    void Start () {
+        availableItems = new List<House_feature>();
+        op = hf.GetComponent<House_feature>();
+        fname = "Feature_List.muda";
+        getShop(fname);
         aval = availableItems.ToArray();
 
 	}
@@ -106,6 +113,41 @@ public class Shop : MonoBehaviour {
         if (ok.Money1 > aval[9].purchase())
         {
             ok.makePurchase(aval[9]);
+        }
+    }
+    public void getShop(string fileName)
+    {
+        // Handle any problems that might arise when reading the text
+        try
+        {
+            string line;
+            StreamReader theReader = new StreamReader(fileName, Encoding.Default);
+            using (theReader)
+            {
+                line = theReader.ReadLine();
+                
+                if (line != null)
+                {
+                    do
+                    {
+                        string[] entries = line.Split('|');
+                        Debug.Log(entries[0]);
+                        op.Create(entries[0], System.Int32.Parse(entries[1]), System.Single.Parse(entries[2]), System.Single.Parse(entries[3]), System.Single.Parse(entries[4]), System.Int32.Parse(entries[5]));
+                        House_feature hue = Instantiate<House_feature>(op);
+                        Debug.Log(hue.nahme);
+                        availableItems.Add(hue);
+                        if (entries.Length > 0)
+                            line = theReader.ReadLine();
+                    }
+                    while (line != null);
+                }
+                theReader.Close();
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e);
+            return;
         }
     }
 }
