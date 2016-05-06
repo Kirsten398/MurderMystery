@@ -16,6 +16,7 @@ public class Cycle : MonoBehaviour
     public GameObject child;
 
     List<Transform> Line;
+    float space = 0.75f;
 
     // Use this for initialization
     void Start()
@@ -52,19 +53,31 @@ public class Cycle : MonoBehaviour
         //Create the line of customers
         for (int i = 0; i < lineLength; i++)
         {
-            //Random decision of age, 1 for adult, 2 for child
-            age = Random.Range(1, 3);
+            //Random decision of age, 1, 2, and 3 for adult, 4 for child
+            age = Random.Range(1, 7);
 
-            if (age == 1)
+            if (age < 6)
             {
-                Instantiate(woman);
-                Line.Add(woman.transform);
+                Line.Add(Instantiate(woman).transform);
             }
             else
             {
-                Instantiate(child);
-                Line.Add(child.transform);
+                Line.Add(Instantiate(child).transform);
             }
+        }
+
+        makeLine();
+    }
+
+    void makeLine()
+    {
+        int pos = 1;
+
+        foreach (Transform t in Line)
+        {
+            t.transform.position = new Vector3(-2.5f, -0.082f, (-2.82f - pos) * space);
+
+            pos++;
         }
     }
 
