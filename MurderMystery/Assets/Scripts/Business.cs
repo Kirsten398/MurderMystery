@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
+using System.Text;
 
 public class Business : MonoBehaviour {
     string owner;
@@ -13,6 +15,7 @@ public class Business : MonoBehaviour {
     int customers; //number of customers on one day
     int maxAssets; //number of features you can place in your house
     House myHouse;
+    public Shop s;
 
     public int Money1
     {
@@ -135,12 +138,77 @@ public class Business : MonoBehaviour {
 	void Update () {
 
 	}
-  public void makePurchase(House_feature d){
-    if (Money >= d.purchase())
+    public void makePurchase(House_feature d)
     {
-        Money -= d.purchase();
+        if (Money >= d.purchase())
+        {
+            Money -= d.purchase();
             myHouse.AddAsset(d);
+        }
+        else { } //produce error message
     }
-    else { } //produce error message
-  }
+    public void loadGame(string fileName)
+    {
+        // Handle any problems that might arise when reading the text
+        try
+        {
+            string line;
+            StreamReader theReader = new StreamReader(fileName, Encoding.Default);
+            int i = 0;
+            using (theReader)
+            {
+                line = theReader.ReadLine();
+
+                if (line != null)
+                {
+                    do
+                    {
+                        string[] entries = line.Split('|');
+                        if (i == 0)
+                        {
+                            owner = entries[0];
+                            if (System.Int32.Parse(entries[1]) == 0) male = false; else male = true;
+                            Money = (int)long.Parse(entries[2]);
+                            Popularity = System.Single.Parse(entries[3]);
+                            Speed = System.Single.Parse(entries[4]);
+                        }
+                        else
+                        {
+                            for(int j = 0; j < entries.Length; j++)
+                            {
+                                int ammount = System.Int16.Parse(entries[j]);
+                                for(int k = 0; k< ammount; k++)
+                                {
+                                    myHouse.AddAsset(s.getAvailable()[j]);
+                                }
+                            }
+                        }
+                        if (entries.Length > 0)
+                            line = theReader.ReadLine();
+                    }
+                    while (line != null);
+                }
+                theReader.Close();
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e);
+            return;
+        }
+    }
+    public void SaveGame(string filename)
+    {
+        int m = 0;
+        if (male) m = 1;
+        string yip = "";
+        for(int i = 0; i < myHouse.vals().Length; i++)
+        {
+            yip += myHouse.vals()[i] + "|";
+            if (i!=myHouse.vals().Length-1)
+            yip += "|";
+        }
+        string[] lines = { owner + "|" + m + "|" + Money + "|" + popularity + "|" + speed,yip};
+        File.WriteAllLines(filename, lines);
+    }
 }

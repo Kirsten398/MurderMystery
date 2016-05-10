@@ -26,6 +26,10 @@ public class Shop : MonoBehaviour {
 	
 	}
     
+    public void makePurchase(int i)
+    {
+
+    }
     //Zombie
     public void purchaseZombie(Business ok)
     {
@@ -108,7 +112,7 @@ public class Shop : MonoBehaviour {
     }
 
     //THIS
-    public void purchaseTHIS(Business ok)
+    public void purchaseTHIS(Business ok, int i)
     {
         if (ok.Money1 > aval[9].purchase())
         {
@@ -149,5 +153,9 @@ public class Shop : MonoBehaviour {
             Debug.Log(e);
             return;
         }
+    }
+    public List<House_feature> getAvailable()
+    {
+        return availableItems;
     }
 }
