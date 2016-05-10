@@ -7,11 +7,16 @@ public class Cycle : MonoBehaviour
 {
     bool Day;
     GameObject AssetButton;
+    GameObject ManPane;
     float Night = 120;
     float NightTime = 0;
     float FastForward = 1;
     int lineLength;
     int age;
+    public int price = 5;
+    string STprice;
+    Text priceText;
+    Business biz;
     public GameObject woman;
     public GameObject child;
     public Collider exit;
@@ -29,11 +34,32 @@ public class Cycle : MonoBehaviour
         Empty = false;
         AssetButton = GameObject.Find("Asset Tab");
         Line = new List<Transform>();
+
+        ManPane = GameObject.Find("Management Pane");
+
+        GameObject printPrice = new GameObject("Price");
+        printPrice.transform.SetParent(ManPane.transform);
+        priceText = printPrice.AddComponent<Text>();
+        priceText.transform.position = ManPane.transform.position;
+        priceText.transform.position += new Vector3(0, 240, 0);
+
+        Font ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
+        priceText.font = ArialFont;
+        priceText.material = ArialFont.material;
+        priceText.fontSize = 25;
+        priceText.color = Color.black;
+        priceText.alignment = (TextAnchor)TextAlignment.Center;
+
+        priceText.text = "5";
     }
 
     // Update is called once per frame
     void Update()
     {
+        STprice = "" + price;
+
+        priceText.text = STprice;
+
         if (!Day)
         {
             AssetButton.SetActive(false);
@@ -47,6 +73,7 @@ public class Cycle : MonoBehaviour
             if (Empty)
             {
                 ShiftLine();
+                biz.GetComponent<Business>().purchaseTicket();
                 Empty = false;
             }
 
@@ -140,5 +167,15 @@ public class Cycle : MonoBehaviour
     {
         if(exit)
             Empty = true;
+    }
+
+    public void addPrice()
+    {
+        price += 5;
+    }
+
+    public void minusPrice()
+    {
+        price -= 5;
     }
 }

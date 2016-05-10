@@ -17,114 +17,94 @@ public class Business : MonoBehaviour {
     int maxAssets; //number of features you can place in your house
     House myHouse;
     public Shop s;
+    Cycle price;
+    Text monies;
+    GameObject ManPane;
+    string STmonies;
     string saveFile = "savefile.muda";
 
-    public int Money1
-    {
-        get
-        {
+    public int Money1 {
+        get {
             return Money;
         }
 
-        set
-        {
+        set {
             Money = value;
         }
     }
 
-    public float Scary
-    {
-        get
-        {
+    public float Scary {
+        get {
             return scary;
         }
 
-        set
-        {
+        set {
             scary = value;
         }
     }
 
-    public float Happiness
-    {
-        get
-        {
+    public float Happiness {
+        get {
             return happiness;
         }
 
-        set
-        {
+        set {
             happiness = value;
         }
     }
 
-    public float Satisfaction
-    {
-        get
-        {
+    public float Satisfaction {
+        get {
             return satisfaction;
         }
 
-        set
-        {
+        set {
             satisfaction = value;
         }
     }
 
-    public float Popularity
-    {
-        get
-        {
+    public float Popularity {
+        get {
             return popularity;
         }
 
-        set
-        {
+        set {
             popularity = value;
         }
     }
 
-    public float Speed
-    {
-        get
-        {
+    public float Speed {
+        get {
             return speed;
         }
 
-        set
-        {
+        set {
             speed = value;
         }
     }
 
-    public int Customers
-    {
-        get
-        {
+    public int Customers {
+        get {
             return customers;
         }
 
-        set
-        {
+        set {
             customers = value;
         }
     }
 
-    public int MaxAssets
-    {
-        get
-        {
+    public int MaxAssets {
+        get {
             return maxAssets;
         }
 
-        set
-        {
+        set {
             maxAssets = value;
         }
     }
 
     void Start () {
-        Money = 0;
+        Money = 500;
         owner = "Vlad";
         male = true;
         scary = 1.0f;
@@ -134,11 +114,30 @@ public class Business : MonoBehaviour {
         Customers = 0;
         Speed = 1;
         MaxAssets = 10;
-	}
+
+        ManPane = GameObject.Find("Management Pane");
+
+        GameObject printMoney = new GameObject("Money");
+        printMoney.transform.SetParent(ManPane.transform);
+        monies = printMoney.AddComponent<Text>();
+        monies.transform.position = ManPane.transform.position;
+        monies.transform.position += new Vector3(50, 150, 0);
+
+        Font ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
+        monies.font = ArialFont;
+        monies.material = ArialFont.material;
+        monies.fontSize = 25;
+        monies.color = Color.black;
+        monies.alignment = (TextAnchor)TextAlignment.Center;
+
+        monies.text = "500";
+    }
 
 	// Update is called once per frame
 	void Update () {
+        STmonies = "" + Money;
 
+        monies.text = STmonies;
 	}
     public void makePurchase(House_feature d)
     {
@@ -149,6 +148,12 @@ public class Business : MonoBehaviour {
         }
         else { } //produce error message
     }
+
+    public void purchaseTicket()
+    {
+        Money += price.GetComponent<Cycle>().price;
+    }
+
     public void loadGame(string fileName)
     {
         // Handle any problems that might arise when reading the text
@@ -199,6 +204,7 @@ public class Business : MonoBehaviour {
             return;
         }
     }
+
     public void SaveGame(string filename)
     {
         int m = 0;
