@@ -19,6 +19,17 @@ public class Customer : MonoBehaviour {
         reason = 0.1f;
 	}
 	
+    public void createCustomer(string n, bool m, bool a, float p, float san, float st, float r)
+    {
+        nahme = n;
+        male = m;
+        adult = a;
+        patience = p;
+        sanity = san;
+        stamina = st;
+        reason = r;
+    }
+
 	// Update is called once per frame
 	void Update () {
 	

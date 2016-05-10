@@ -14,14 +14,19 @@ public class Cycle : MonoBehaviour
     int age;
     public GameObject woman;
     public GameObject child;
+    public Collider exit;
 
     List<Transform> Line;
     float space = 0.75f;
+
+    bool Empty;
+    bool Closed;
 
     // Use this for initialization
     void Start()
     {
         Day = true;
+        Empty = false;
         AssetButton = GameObject.Find("Asset Tab");
         Line = new List<Transform>();
     }
@@ -33,6 +38,19 @@ public class Cycle : MonoBehaviour
         {
             AssetButton.SetActive(false);
             NightTime += (Time.deltaTime / Night) * FastForward;
+
+            if (NightTime == 1 / 8)
+            {
+                Empty = true;                
+            }
+
+            if (Empty)
+            {
+                ShiftLine();
+                Empty = false;
+            }
+
+            OnCollisionEnter();
 
             if (NightTime >= 1)
             {
@@ -58,11 +76,33 @@ public class Cycle : MonoBehaviour
 
             if (age < 6)
             {
-                Line.Add(Instantiate(woman).transform);
+                //Randomize these stats
+                float pat = Random.Range(5.0f, 10.0f);
+                float san = Random.Range(1.0f, 5.0f);
+                float stam = Random.Range(1.0f, 10.0f);
+                float reas = Random.Range(0.5f, 1.0f);
+
+                //Instantiate model with transform and construct customer
+                Transform ok = Instantiate(woman).transform;
+                ok.GetComponent<Customer>().createCustomer("Kirsten", false, true, pat, san, stam, reas);
+
+                //Add to line
+                Line.Add(ok);
             }
             else
             {
-                Line.Add(Instantiate(child).transform);
+                //Randomize these stats
+                float pat = Random.Range(1.0f, 5.0f);
+                float san = Random.Range(5.0f, 10.0f);
+                float stam = Random.Range(1.0f, 10.0f);
+                float reas = Random.Range(0.1f, 0.5f);
+
+                //Instantiate model with transform and construct customer
+                Transform ok = Instantiate(child).transform;
+                ok.GetComponent<Customer>().createCustomer("Aria", false, false, pat, san, stam, reas);
+
+                //Add to Line
+                Line.Add(ok);
             }
         }
 
@@ -83,10 +123,22 @@ public class Cycle : MonoBehaviour
 
     void ShiftLine()
     {
-        float personspace = 0.5f;
-        int personsRow = 5;
+        List<Transform> temp = Line;
         Line.RemoveAt(0);
         Line.TrimExcess();
+        Transform[] op = Line.ToArray();
+
+        for(int i = 0; i < op.Length;i++)
+        {
+            op[i].position = temp[i].position;
+        }
+
         //Camlin use this to make the line move
+    }
+
+    void OnCollisionEnter()
+    {
+        if(exit)
+            Empty = true;
     }
 }
