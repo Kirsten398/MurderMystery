@@ -16,14 +16,6 @@ public class House : MonoBehaviour {
       
     }
 
-    void ShiftLine()
-    {
-        float personspace = 0.5f;
-        int personsRow = 5;
-        Line.RemoveAt(0);
-        Line.TrimExcess();
-        //Camlin use this to make the line move
-    }
     public void AddAsset(House_feature m)
     {
         if (totalAssets + m.AssetPoints1 <= maxAssets)
