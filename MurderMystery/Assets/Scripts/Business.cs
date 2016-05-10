@@ -2,6 +2,7 @@
 using System.Collections;
 using System.IO;
 using System.Text;
+using UnityEngine.UI;
 
 public class Business : MonoBehaviour {
     string owner;
@@ -16,6 +17,7 @@ public class Business : MonoBehaviour {
     int maxAssets; //number of features you can place in your house
     House myHouse;
     public Shop s;
+    string saveFile = "savefile.muda";
 
     public int Money1
     {
@@ -210,5 +212,10 @@ public class Business : MonoBehaviour {
         }
         string[] lines = { owner + "|" + m + "|" + Money + "|" + popularity + "|" + speed,yip};
         File.WriteAllLines(filename, lines);
+    }
+
+    public void NewGame()
+    {
+        Application.LoadLevel("Test");
     }
 }
