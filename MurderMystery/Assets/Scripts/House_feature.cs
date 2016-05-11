@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class House_feature : MonoBehaviour {
     public string nahme;
@@ -8,6 +9,10 @@ public class House_feature : MonoBehaviour {
     public float happiness; //value between 0 and 5 on how happy your customers get from seeing this
     public float originality; //value between 0 and 1 on how original the prop is
     public int AssetPoints;
+
+    public Business ok;
+    List<House_feature> availableItems;
+    House_feature[] aval;
 
     public int AssetPoints1
     {
@@ -23,13 +28,8 @@ public class House_feature : MonoBehaviour {
     }
 
     void Start () {
-        nahme = "Zombie";
-        cost = 100;
-        scary = 0.12f;
-        happiness = 0.22f;
-        originality = 0.1f;
-        AssetPoints1 = 2;
-	}
+        aval = availableItems.ToArray();
+    }
     public void Create(string n, int c, float s, float h, float o, int ap)
     {
         nahme = n;
@@ -43,7 +43,17 @@ public class House_feature : MonoBehaviour {
 	void Update () {
 
 	}
-  public int purchase(){
+
+    //purchase Items
+    public void purchaseItem(int i)
+    {
+        if (ok.Money1 > aval[i].purchase())
+        {
+            ok.makePurchase(aval[i]);
+        }
+    }
+
+    public int purchase(){
         return cost;
   }
 }

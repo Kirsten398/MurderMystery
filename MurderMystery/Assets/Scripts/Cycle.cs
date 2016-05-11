@@ -8,15 +8,20 @@ public class Cycle : MonoBehaviour
     bool Day;
     GameObject AssetButton;
     GameObject ManPane;
+
     float Night = 120;
     float NightTime = 0;
     float FastForward = 1;
+
+    float lineTime = 5;
+    float lineShift = 0;
+
     int lineLength;
     int age;
     public int price = 5;
     string STprice;
     Text priceText;
-    Business biz;
+    public Business biz;
     public GameObject woman;
     public GameObject child;
     public Collider exit;
@@ -27,9 +32,13 @@ public class Cycle : MonoBehaviour
     bool Empty;
     bool Closed;
 
+    float nativeWidth = 1920;
+    float nativeHeight = 1080;
+
     // Use this for initialization
     void Start()
     {
+
         Day = true;
         Empty = false;
         AssetButton = GameObject.Find("Asset Tab");
@@ -41,7 +50,7 @@ public class Cycle : MonoBehaviour
         printPrice.transform.SetParent(ManPane.transform);
         priceText = printPrice.AddComponent<Text>();
         priceText.transform.position = ManPane.transform.position;
-        priceText.transform.position += new Vector3(0, 240, 0);
+        priceText.transform.position += new Vector3(0, 210, 0);
 
         Font ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
         priceText.font = ArialFont;
@@ -49,6 +58,7 @@ public class Cycle : MonoBehaviour
         priceText.fontSize = 25;
         priceText.color = Color.black;
         priceText.alignment = (TextAnchor)TextAlignment.Center;
+        
 
         priceText.text = "5";
     }
@@ -65,19 +75,23 @@ public class Cycle : MonoBehaviour
             AssetButton.SetActive(false);
             NightTime += (Time.deltaTime / Night) * FastForward;
 
-            if (NightTime == 1 / 8)
-            {
-                Empty = true;                
-            }
+            Empty = true;                
 
             if (Empty)
             {
-                ShiftLine();
-                biz.GetComponent<Business>().purchaseTicket();
-                Empty = false;
-            }
+                lineShift += (Time.deltaTime / lineTime);
 
-            OnCollisionEnter();
+                if (lineShift >= 1 && Line.Count > 0)
+                {
+                    ShiftLine();
+                    biz.GetComponent<Business>().purchaseTicket();
+
+                    lineShift = 0;
+                }
+
+                Empty = false;
+                
+            }
 
             if (NightTime >= 1)
             {
@@ -110,11 +124,12 @@ public class Cycle : MonoBehaviour
                 float reas = Random.Range(0.5f, 1.0f);
 
                 //Instantiate model with transform and construct customer
-                Transform ok = Instantiate(woman).transform;
+                GameObject ok = Instantiate(woman);
+                ok.AddComponent<Customer>();
                 ok.GetComponent<Customer>().createCustomer("Kirsten", false, true, pat, san, stam, reas);
 
                 //Add to line
-                Line.Add(ok);
+                Line.Add(ok.transform);
             }
             else
             {
@@ -125,11 +140,12 @@ public class Cycle : MonoBehaviour
                 float reas = Random.Range(0.1f, 0.5f);
 
                 //Instantiate model with transform and construct customer
-                Transform ok = Instantiate(child).transform;
-                ok.GetComponent<Customer>().createCustomer("Aria", false, false, pat, san, stam, reas);
+                GameObject ko = Instantiate(child);
+                ko.AddComponent<Customer>();
+                ko.GetComponent<Customer>().createCustomer("Aria", false, false, pat, san, stam, reas);
 
                 //Add to Line
-                Line.Add(ok);
+                Line.Add(ko.transform);
             }
         }
 
@@ -150,22 +166,22 @@ public class Cycle : MonoBehaviour
 
     void ShiftLine()
     {
-        List<Transform> temp = Line;
-        Line.RemoveAt(0);
-        Line.TrimExcess();
         Transform[] op = Line.ToArray();
 
-        for(int i = 0; i < op.Length;i++)
+        Destroy(op[0].gameObject);
+
+        for(int i = 1; i < op.Length; i++)
         {
-            op[i].position = temp[i].position;
+            op[i].Translate(0, 0, space);
         }
 
+        Line.RemoveAt(0);
         //Camlin use this to make the line move
     }
 
-    void OnCollisionEnter()
+    void OnCollisionEnter(Collision c)
     {
-        if(exit)
+        if(c.gameObject.CompareTag("Player"))
             Empty = true;
     }
 

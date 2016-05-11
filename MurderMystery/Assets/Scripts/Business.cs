@@ -15,11 +15,11 @@ public class Business : MonoBehaviour {
     float speed; //value between 1 and 20 on how fast and efficient your house is
     int customers; //number of customers on one day
     int maxAssets; //number of features you can place in your house
-    House myHouse;
+    public House myHouse;
     public Shop s;
-    Cycle price;
+    public Cycle price;
     Text monies;
-    GameObject ManPane;
+    GameObject MP;
     string STmonies;
     string saveFile = "savefile.muda";
 
@@ -115,13 +115,13 @@ public class Business : MonoBehaviour {
         Speed = 1;
         MaxAssets = 10;
 
-        ManPane = GameObject.Find("Management Pane");
+        MP = GameObject.Find("Management Pane");
 
         GameObject printMoney = new GameObject("Money");
-        printMoney.transform.SetParent(ManPane.transform);
+        printMoney.transform.SetParent(MP.transform);
         monies = printMoney.AddComponent<Text>();
-        monies.transform.position = ManPane.transform.position;
-        monies.transform.position += new Vector3(50, 150, 0);
+        monies.transform.position = MP.transform.position;
+        monies.transform.position += new Vector3(50, 125, 0);
 
         Font ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
         monies.font = ArialFont;
@@ -210,10 +210,10 @@ public class Business : MonoBehaviour {
         int m = 0;
         if (male) m = 1;
         string yip = "";
-        for(int i = 0; i < myHouse.vals().Length; i++)
+        for(int i = 0; i < myHouse.vals().Count; i++)
         {
             yip += myHouse.vals()[i] + "|";
-            if (i!=myHouse.vals().Length-1)
+            if (i!=myHouse.vals().Count-1)
             yip += "|";
         }
         string[] lines = { owner + "|" + m + "|" + Money + "|" + popularity + "|" + speed,yip};
